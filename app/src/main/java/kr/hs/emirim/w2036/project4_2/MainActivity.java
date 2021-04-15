@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-    CheckBox checkStart;
+
+    Switch switchStart;
     RadioGroup rg;
     ImageView imgv;
     LinearLayout linear;
@@ -22,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkStart = findViewById(R.id.check_start);
+        switchStart = findViewById(R.id.switch_start);
         linear = findViewById(R.id.linear);
         rg = findViewById(R.id.rg);
         imgv = findViewById(R.id.imgv);
-        Button btnDone = findViewById(R.id.btn_done);
 
-        checkStart.setOnCheckedChangeListener(checkListener);
-        btnDone.setOnClickListener(btnListener);
+        switchStart.setOnCheckedChangeListener(checkListener);
+        rg.setOnCheckedChangeListener(rgListener);
     }
+
     CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -38,14 +39,14 @@ public class MainActivity extends AppCompatActivity {
                 linear.setVisibility(View.VISIBLE);
             }else{
                 linear.setVisibility(View.INVISIBLE);
-            } //end of if
+            }
         }
     };
 
-    View.OnClickListener btnListener = new View.OnClickListener() {
+    RadioGroup.OnCheckedChangeListener rgListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
-        public void onClick(View v) {
-            switch(rg.getCheckedRadioButtonId()){
+        public void onCheckedChanged(RadioGroup Group, int checkId) {
+            switch (checkId){
                 case R.id.radio_dog:
                     imgv.setImageResource(R.drawable.dog);
                     break;
@@ -53,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
                     imgv.setImageResource(R.drawable.cat);
                     break;
                 case R.id.radio_rabbit:
-                    imgv.setImageResource(R.drawable.rabbit);
+                    imgv.setImageResource(R.drawable.rabit);
                     break;
-            } //end of switch
+            }
         }
     };
 }
